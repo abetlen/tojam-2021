@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="Curve3D" id=1]
+bake_interval = 1.0
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -32, 0, -8, 0, 0, -8, 0, 0, 8, -32, 0, 8, 0, 0, 0, 0, 0, 0, -24, 0, 16, 0, 0, 0, 0, 0, 0, 24, 0, 16, 0, 0, 8, 0, 0, -8, 32, 0, 8, 0, 0, 0, 0, 0, 0, 32, 0, -8 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
+}
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+albedo_color = Color( 0.482353, 0.482353, 0.482353, 1 )
+
+[node name="Player2Path" type="Path"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 16 )
+curve = SubResource( 1 )
+
+[node name="PathFollow" type="PathFollow" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9276, 0, 16 )
+offset = 33.7503
+rotation_mode = 0
+
+[node name="Target" type="Position3D" parent="PathFollow"]
+
+[node name="Outline" type="CSGPolygon" parent="."]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.5, 0 )
+layers = 2
+invert_faces = true
+polygon = PoolVector2Array( -0.5, 0, -0.5, 0.25, 0.5, 0.25, 0.5, 0 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 1.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = false
+material = SubResource( 2 )

@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://MenuFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://MainMenu.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Host" type="Button" parent="MainMenu"]
+anchor_right = 48.0
+anchor_bottom = 27.0
+margin_left = 640.0
+margin_top = 240.0
+margin_right = -640.0
+margin_bottom = -699.0
+custom_fonts/font = ExtResource( 1 )
+text = "Host A Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Join" type="Button" parent="MainMenu"]
+anchor_right = 47.8
+anchor_bottom = 27.0
+margin_left = 640.0
+margin_top = 558.68
+margin_right = -632.0
+margin_bottom = -380.32
+custom_fonts/font = ExtResource( 1 )
+text = "Join A Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameID" type="LineEdit" parent="MainMenu"]
+anchor_right = 48.0
+anchor_bottom = 27.0
+margin_left = 640.0
+margin_top = 819.0
+margin_right = -640.0
+margin_bottom = -157.0
+custom_fonts/font = ExtResource( 1 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Or" type="Label" parent="MainMenu"]
+anchor_right = 48.0
+anchor_bottom = 27.0
+margin_left = 760.0
+margin_top = 447.52
+margin_right = -760.0
+margin_bottom = -552.48
+custom_fonts/font = ExtResource( 1 )
+text = "OR"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnterGameID" type="Label" parent="MainMenu"]
+anchor_right = 48.2
+anchor_bottom = 27.0
+margin_left = 640.0
+margin_top = 727.52
+margin_right = -648.0
+margin_bottom = -272.48
+custom_fonts/font = ExtResource( 1 )
+text = "Enter Game ID"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lobby" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1920.0
+margin_bottom = -1080.0
+
+[node name="Waiting" type="Label" parent="Lobby"]
+margin_top = 559.0
+margin_right = 1920.0
+margin_bottom = 639.0
+custom_fonts/font = ExtResource( 1 )
+text = "Waiting For Other Player..."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameID" type="Label" parent="Lobby"]
+margin_top = 381.0
+margin_right = 1920.0
+margin_bottom = 461.0
+custom_fonts/font = ExtResource( 1 )
+text = "26589"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 48.0
+margin_top = 1016.0
+margin_right = 714.0
+margin_bottom = 1033.0
+text = "Made at TOJAM 2021"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="MainMenu/Host" to="." method="_on_Host_pressed"]
+[connection signal="pressed" from="MainMenu/Join" to="." method="_on_Join_pressed"]
