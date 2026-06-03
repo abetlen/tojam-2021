@@ -1,5 +1,7 @@
 # tojam-2021
 
+![Toronto Game Jam MiniCade screenshot](TorontoGameJamMiniCade.png)
+
 ## Game Design
 
 The game will consist of an online table hockey game with high fantasy characters.
