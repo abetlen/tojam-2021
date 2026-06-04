@@ -1,6 +1,8 @@
 extends Node
 
 export var websocket_url = "wss://tojam-2021.insert-mode.dev/rooms/%s"
+const default_websocket_url = "wss://tojam-2021.insert-mode.dev/rooms/%s"
+const signaling_server_url_env = "TOJAM_SIGNALING_WS_URL"
 var _client = WebSocketClient.new()
 
 var is_connected = false
@@ -13,10 +15,16 @@ signal on_closed
 # Lifecycle Methods
 
 func _ready():
-	pass
+	websocket_url = _config_websocket_url()
 
 func _process(delta):
 	_client.poll()
+
+func _config_websocket_url() -> String:
+	var env_url = OS.get_environment(signaling_server_url_env)
+	if env_url != "":
+		return env_url
+	return default_websocket_url if websocket_url.empty() else websocket_url
 
 # Public Methods
 
