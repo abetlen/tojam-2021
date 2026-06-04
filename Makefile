@@ -1,30 +1,41 @@
 DOCKER_COMPOSE ?= docker-compose
+PROJECT_PATH ?= TOJAM-2021
+GODOT ?= godot
+ENV_FILE ?= .env
 
-.PHONY: up down logs logs-signaling logs-coturn status stop rebuild clean
+.PHONY: up down logs logs-signaling logs-coturn status stop rebuild clean godot
 
 up:
-\t$(DOCKER_COMPOSE) up -d --build
+	$(DOCKER_COMPOSE) up -d --build
 
 down:
-\t$(DOCKER_COMPOSE) down
+	$(DOCKER_COMPOSE) down
 
 logs:
-\t$(DOCKER_COMPOSE) logs -f
+	$(DOCKER_COMPOSE) logs -f
 
 logs-signaling:
-\t$(DOCKER_COMPOSE) logs -f signalling-server
+	$(DOCKER_COMPOSE) logs -f signalling-server
 
 logs-coturn:
-\t$(DOCKER_COMPOSE) logs -f coturn
+	$(DOCKER_COMPOSE) logs -f coturn
 
 status:
-\t$(DOCKER_COMPOSE) ps
+	$(DOCKER_COMPOSE) ps
 
 stop:
-\t$(DOCKER_COMPOSE) stop
+	$(DOCKER_COMPOSE) stop
 
 rebuild:
-\t$(DOCKER_COMPOSE) build --no-cache
+	$(DOCKER_COMPOSE) build --no-cache
 
 clean:
-\t$(DOCKER_COMPOSE) down -v --remove-orphans
+	$(DOCKER_COMPOSE) down -v --remove-orphans
+
+godot:
+	@if [ -f "$(ENV_FILE)" ]; then \
+		set -a; . $(ENV_FILE); set +a; \
+		$(GODOT) --path $(PROJECT_PATH); \
+	else \
+		$(GODOT) --path $(PROJECT_PATH); \
+	fi

@@ -2,7 +2,7 @@ extends Node
 
 export var websocket_url = "wss://tojam-2021.insert-mode.dev/rooms/%s"
 const default_websocket_url = "wss://tojam-2021.insert-mode.dev/rooms/%s"
-const signaling_server_url_env = "TOJAM_SIGNALING_WS_URL"
+const signaling_server_url_env = "SIGNALING_WS_URL"
 var _client = WebSocketClient.new()
 
 var is_connected = false
