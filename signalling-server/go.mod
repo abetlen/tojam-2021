@@ -1,4 +1,4 @@
-module github.com/abetlen/tojam-2021/server2
+module github.com/abetlen/tojam-2021/signalling-server
 
 go 1.16
 
