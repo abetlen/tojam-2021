@@ -10,6 +10,11 @@ enum {
 	PEER_STARTED
 }
 
+const DEFAULT_SIGNALING_URLS = [ "turn:tojam-2021.insert-mode.dev:3478" ]
+const TURN_SERVER_URLS_ENV = "TURN_SERVER_URLS"
+const TURN_SERVER_USERNAME_ENV = "TURN_SERVER_USERNAME"
+const TURN_SERVER_PASSWORD_ENV = "TURN_SERVER_PASSWORD"
+
 var state = INIT
 
 const Signal = preload("res://signal.gd")
@@ -20,6 +25,10 @@ var _peer = null# WebRTCPeerConnection.new()
 var _channel = null
 var _channel_ready = false
 var _connection_timer = Timer.new()
+
+export (Array) var turn_server_urls = DEFAULT_SIGNALING_URLS
+export (String) var turn_server_username = "tojam-2021"
+export (String) var turn_server_credential = "tojam-2021"
 
 signal state_changed(old_state, new_state)
 
@@ -56,16 +65,23 @@ func _ready():
 	_signal.connect("on_closed", self, "_on_closed")
 
 	_peer = WebRTCPeerConnection.new()
+	_configure_turn_servers()
 	_peer.connect("session_description_created", self, "_on_session_description_created")
 	_peer.connect("ice_candidate_created", self, "_on_ice_candidate_created")
 
-	var err = _peer.initialize({
+	var ice_server_configuration = {
 		"iceServers": [{
-			"urls": [ "turn:tojam-2021.insert-mode.dev:3478" ], # One or more TURN servers.
-			"username": "tojam-2021", # Optional username for the TURN server.
-			"credential": "tojam-2021", # Optional password for the TURN server.
+			"urls": turn_server_urls # One or more TURN servers.
 		}]
-	})
+	}
+
+	# Username and credential are optional for public TURN server setups.
+	if turn_server_username != "":
+		ice_server_configuration["iceServers"][0]["username"] = turn_server_username
+	if turn_server_credential != "":
+		ice_server_configuration["iceServers"][0]["credential"] = turn_server_credential
+
+	var err = _peer.initialize(ice_server_configuration)
 	if err != OK:
 		print("Error = ", err)
 		print_stack()
@@ -209,3 +225,24 @@ func _on_closed():
 
 func _on_timeout():
 	emit_signal("on_closed")
+
+func _configure_turn_servers():
+	turn_server_urls = _read_turn_server_urls_from_env()
+	turn_server_username = _read_env_value(TURN_SERVER_USERNAME_ENV, turn_server_username)
+	turn_server_credential = _read_env_value(TURN_SERVER_PASSWORD_ENV, turn_server_credential)
+
+func _read_turn_server_urls_from_env() -> Array:
+	var env_value = OS.get_environment(TURN_SERVER_URLS_ENV)
+	if env_value == "":
+		return turn_server_urls if turn_server_urls.size() > 0 else DEFAULT_SIGNALING_URLS
+
+	var parsed_urls = []
+	for url in env_value.split(",", false):
+		var trimmed = url.strip_edges()
+		if trimmed != "":
+			parsed_urls.append(trimmed)
+	return parsed_urls if parsed_urls.size() > 0 else DEFAULT_SIGNALING_URLS
+
+func _read_env_value(key: String, fallback: String) -> String:
+	var value = OS.get_environment(key)
+	return value if value != "" else fallback
