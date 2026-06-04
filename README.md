@@ -14,16 +14,6 @@ cp .env.example .env
 make up
 ```
 
-Useful commands:
-
-```sh
-make status
-make logs
-make logs-signaling
-make logs-coturn
-make down
-```
-
 ### Configure game endpoint overrides
 
 The game reads these environment variables at runtime when loading networking:
