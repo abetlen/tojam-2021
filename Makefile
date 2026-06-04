@@ -2,6 +2,7 @@ DOCKER_COMPOSE ?= docker-compose
 PROJECT_PATH ?= TOJAM-2021
 GODOT ?= godot
 ENV_FILE ?= .env
+ENV_FILE_PATH := $(abspath $(ENV_FILE))
 
 .PHONY: up down logs logs-signaling logs-coturn status stop rebuild clean godot
 
@@ -33,8 +34,8 @@ clean:
 	$(DOCKER_COMPOSE) down -v --remove-orphans
 
 godot:
-	@if [ -f "$(ENV_FILE)" ]; then \
-		set -a; . $(ENV_FILE); set +a; \
+	@if [ -f "$(ENV_FILE_PATH)" ]; then \
+		set -a; . "$(ENV_FILE_PATH)"; set +a; \
 		$(GODOT) --path $(PROJECT_PATH); \
 	else \
 		$(GODOT) --path $(PROJECT_PATH); \
