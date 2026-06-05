@@ -1,32 +1,32 @@
-extends Spatial
+extends Node3D
 
-export var ANGULAR_VELOCITY = 5
-export var MAX_ANGULAR_VELOCITY = 20
+@export var ANGULAR_VELOCITY = 5
+@export var MAX_ANGULAR_VELOCITY = 20
 
-export var LINEAR_VELOCITY = 5
-export var MAX_LINEAR_VELOCITY = 20
+@export var LINEAR_VELOCITY = 5
+@export var MAX_LINEAR_VELOCITY = 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var player = $Player
-	var target = $Track/PathFollow
+	var target = $Track/PathFollow3D
 	player.global_transform.origin = target.global_transform.origin
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var player = $Player
-	var target = $Track/PathFollow
+	var target = $Track/PathFollow3D
 
 	var v = (target.global_transform.origin - player.global_transform.origin)
 	player.linear_velocity = 20 * v
 
 func get_track_position() -> float:
-	var target = $Track/PathFollow
-	return target.get_unit_offset()
+	var target = $Track/PathFollow3D
+	return target.get_progress_ratio()
 
-func set_track_position(position: float):
-	var target = $Track/PathFollow
-	target.set_unit_offset(clamp(position, 0, 1))
+func set_track_position(track_position: float):
+	var target = $Track/PathFollow3D
+	target.set_progress_ratio(clamp(track_position, 0, 1))
 
 func get_orientation() -> float:
 	var player = $Player

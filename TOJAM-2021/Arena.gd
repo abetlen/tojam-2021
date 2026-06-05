@@ -1,26 +1,33 @@
-extends Spatial
+extends Node3D
 
-var homeScore = 0
-var awayScore = 0
+var homeScore: int = 0
+var awayScore: int = 0
 
-export var ANGULAR_VELOCITY = 5
-export var MAX_ANGULAR_VELOCITY = 20
+@export var ANGULAR_VELOCITY = 5
+@export var MAX_ANGULAR_VELOCITY = 20
 
-export var LINEAR_VELOCITY = 5
-export var MAX_LINEAR_VELOCITY = 20
+@export var LINEAR_VELOCITY = 5
+@export var MAX_LINEAR_VELOCITY = 20
 
-var last_score = OS.get_ticks_msec()
+var last_score = Time.get_ticks_msec()
+const NETWORK_SEND_HZ := 30.0
+const NETWORK_SEND_INTERVAL := 1.0 / NETWORK_SEND_HZ
+var _network_send_accumulator := 0.0
+var _peer_input_delta_accumulator := 0.0
 
 func _ready():
-	GameManager.connect("update_score", self, "_on_update_score")
-	GameManager.connect("update_state", self, "_on_update_state")
-	GameManager.connect("input_received", self, "_on_input_received")
+	GameManager.connect("score_updated", Callable(self, "_on_update_score"))
+	GameManager.connect("state_updated", Callable(self, "_on_update_state"))
+	GameManager.connect("input_received", Callable(self, "_on_input_received"))
 
-func _on_update_score(home_score, away_score):
+func _set_score(home_score: int, away_score: int):
 	homeScore = home_score
 	awayScore = away_score
-	$UI/Panel/HomeScore/Score.text = str(self.homeScore)
-	$UI/Panel/AwayScore/Score.text = str(self.awayScore)
+	$UI/Panel/HomeScore/Score.text = str(homeScore)
+	$UI/Panel/AwayScore/Score.text = str(awayScore)
+
+func _on_update_score(home_score, away_score):
+	_set_score(int(home_score), int(away_score))
 
 func _set_position(node, arr):
 	node.transform.origin.x = arr[0]
@@ -101,23 +108,37 @@ func process_host_input(delta):
 	elif Input.is_action_pressed("ui_right_2"):
 		homeDefense.turn_clockwise(delta)
 
-	GameManager.update_state($Puck.transform.origin, homeOffense, homeDefense, awayOffense, awayDefense)
+func send_host_state():
+	GameManager.update_state($Puck.transform.origin, $HomeOffense, $HomeDefense, $AwayOffense, $AwayDefense)
 
 func process_peer_input(delta):
 	GameManager.send_input(delta, input2dict(Input))
 
 func _process(delta):
+	_network_send_accumulator += delta
+	if not GameManager.get_is_host():
+		_peer_input_delta_accumulator += delta
+
+	var should_send_network_update := false
+	if _network_send_accumulator >= NETWORK_SEND_INTERVAL:
+		_network_send_accumulator = fmod(_network_send_accumulator, NETWORK_SEND_INTERVAL)
+		should_send_network_update = true
+
 	if GameManager.get_is_host():
 		process_host_input(delta)
+		if should_send_network_update:
+			send_host_state()
 	else:
-		process_peer_input(delta)
+		if should_send_network_update:
+			process_peer_input(_peer_input_delta_accumulator)
+			_peer_input_delta_accumulator = 0.0
 
 	var puck = $Puck
 	if abs(puck.transform.origin.x) > 45 or abs(puck.transform.origin.z) > 105:
 		_reset_game()
 
 func _on_Puck_scored_on(net):
-	var now = OS.get_ticks_msec()
+	var now = Time.get_ticks_msec()
 	if now - last_score < 100:
 		return
 	else:
@@ -125,11 +146,9 @@ func _on_Puck_scored_on(net):
 
 	var homeNet = $HomeNet/InNet
 	if net == homeNet:
-		self.awayScore += 1
-		$UI/Panel/AwayScore/Score.text = str(self.awayScore)
+		_set_score(homeScore, awayScore + 1)
 	else:
-		self.homeScore += 1
-		$UI/Panel/HomeScore/Score.text = str(self.homeScore)
+		_set_score(homeScore + 1, awayScore)
 	GameManager.update_score(homeScore, awayScore)
 
 	_reset_game()
@@ -140,9 +159,9 @@ func _reset_game():
 	puck.transform.origin.z = 0
 	puck.reset_velocity()
 
-	$HomeOffense/Track/PathFollow.unit_offset = 0.5
-	$HomeDefense/Track/PathFollow.unit_offset = 0.5
-	$AwayOffense/Track/PathFollow.unit_offset = 0.5
-	$AwayDefense/Track/PathFollow.unit_offset = 0.5
+	$HomeOffense/Track/PathFollow3D.progress_ratio = 0.5
+	$HomeDefense/Track/PathFollow3D.progress_ratio = 0.5
+	$AwayOffense/Track/PathFollow3D.progress_ratio = 0.5
+	$AwayDefense/Track/PathFollow3D.progress_ratio = 0.5
 	
 	

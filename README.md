@@ -18,8 +18,8 @@ make up
 
 The game reads these environment variables at runtime when loading networking:
 
-- `SIGNALING_WS_URL` (default `wss://tojam-2021.insert-mode.dev/rooms/%s`)
-- `TURN_SERVER_URLS` (default `turn:tojam-2021.insert-mode.dev:3478`)
+- `SIGNALING_WS_URL` (default `ws://localhost:5050/rooms/%s`)
+- `TURN_SERVER_URLS` (default `turn:127.0.0.1:3478`)
 - `TURN_SERVER_USERNAME` (default `tojam-2021`)
 - `TURN_SERVER_PASSWORD` (default `tojam-2021`)
 

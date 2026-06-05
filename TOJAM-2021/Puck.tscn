@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Puck.gd" type="Script" id=1]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
 emission_enabled = true
 emission = Color( 0.317647, 0.972549, 0.972549, 1 )
@@ -19,14 +19,14 @@ height = 0.1
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="StandardMaterial3D" id=4]
 albedo_color = Color( 0.08, 0.08, 0.08, 1 )
 
-[sub_resource type="CylinderShape" id=5]
+[sub_resource type="CylinderShape3D" id=5]
 height = 3.73525
 
-[node name="Puck" type="RigidBody"]
-contacts_reported = 1
+[node name="Puck" type="RigidBody3D"]
+max_contacts_reported = 1
 contact_monitor = true
 axis_lock_linear_y = true
 axis_lock_angular_x = true
@@ -34,7 +34,7 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 script = ExtResource( 1 )
 
-[node name="PuckTrail" type="CPUParticles" parent="."]
+[node name="PuckTrail" type="CPUParticles3D" parent="."]
 layers = 2
 cast_shadow = 0
 amount = 64
@@ -44,13 +44,13 @@ mesh = SubResource( 2 )
 gravity = Vector3( 0, 0, 0 )
 scale_amount_curve = SubResource( 3 )
 
-[node name="PuckMesh" type="CSGCylinder" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.25, 0, 0, 0, 1, 0, 0, 0 )
+[node name="PuckMesh" type="CSGCylinder3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 0.25, 0, 0, 0, 1, 0, 0, 0 )
 layers = 2
 cast_shadow = 0
 sides = 64
 material = SubResource( 4 )
 
-[node name="PuckCollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0123272, 0 )
+[node name="PuckCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0123272, 0 )
 shape = SubResource( 5 )

@@ -1,4 +1,4 @@
-extends RigidBody
+extends RigidBody3D
 
 
 # Declare member variables here. Examples:
@@ -15,7 +15,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var bodies = self.get_colliding_bodies()
 	if len(bodies) > 0:
 		var body = bodies[0]
