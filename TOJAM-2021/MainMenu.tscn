@@ -1,132 +1,124 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene format=3 uid="uid://bydg8kk7pgemj"]
 
-[ext_resource path="res://MenuFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://MainMenu.gd" type="Script" id=2]
+[ext_resource type="FontFile" uid="uid://cqtj8a6eeunc7" path="res://MenuFont.tres" id="1"]
+[ext_resource type="Script" uid="uid://b38wxwuw576ll" path="res://MainMenu.gd" id="2"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1211323033]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2")
 
-[node name="MainMenu" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="MainMenu" type="Control" parent="." unique_id=2098348290]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Host" type="Button" parent="MainMenu"]
+[node name="Host" type="Button" parent="MainMenu" unique_id=1670219432]
+layout_mode = 0
 anchor_right = 48.0
 anchor_bottom = 27.0
-margin_left = 640.0
-margin_top = 240.0
-margin_right = -640.0
-margin_bottom = -699.0
-custom_fonts/font = ExtResource( 1 )
+offset_left = 640.0
+offset_top = 240.0
+offset_right = -640.0
+offset_bottom = -699.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
 text = "Host A Game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Join" type="Button" parent="MainMenu"]
+[node name="Join" type="Button" parent="MainMenu" unique_id=250631485]
+layout_mode = 0
 anchor_right = 47.8
 anchor_bottom = 27.0
-margin_left = 640.0
-margin_top = 558.68
-margin_right = -632.0
-margin_bottom = -380.32
-custom_fonts/font = ExtResource( 1 )
+offset_left = 640.0
+offset_top = 558.68
+offset_right = -632.0
+offset_bottom = -380.32
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
 text = "Join A Game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="GameID" type="LineEdit" parent="MainMenu"]
+[node name="GameID" type="LineEdit" parent="MainMenu" unique_id=80764304]
+layout_mode = 0
 anchor_right = 48.0
 anchor_bottom = 27.0
-margin_left = 640.0
-margin_top = 819.0
-margin_right = -640.0
-margin_bottom = -157.0
-custom_fonts/font = ExtResource( 1 )
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 640.0
+offset_top = 819.0
+offset_right = -640.0
+offset_bottom = -157.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
+alignment = 1
 
-[node name="Or" type="Label" parent="MainMenu"]
+[node name="Or" type="Label" parent="MainMenu" unique_id=595018189]
+layout_mode = 0
 anchor_right = 48.0
 anchor_bottom = 27.0
-margin_left = 760.0
-margin_top = 447.52
-margin_right = -760.0
-margin_bottom = -552.48
-custom_fonts/font = ExtResource( 1 )
+offset_left = 760.0
+offset_top = 447.52
+offset_right = -760.0
+offset_bottom = -552.48
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
 text = "OR"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="EnterGameID" type="Label" parent="MainMenu"]
+[node name="EnterGameID" type="Label" parent="MainMenu" unique_id=80157433]
+layout_mode = 0
 anchor_right = 48.2
 anchor_bottom = 27.0
-margin_left = 640.0
-margin_top = 727.52
-margin_right = -648.0
-margin_bottom = -272.48
-custom_fonts/font = ExtResource( 1 )
+offset_left = 640.0
+offset_top = 727.52
+offset_right = -648.0
+offset_bottom = -272.48
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
 text = "Enter Game ID"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Lobby" type="Control" parent="."]
+[node name="Lobby" type="Control" parent="." unique_id=890755339]
 visible = false
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1920.0
-margin_bottom = -1080.0
+offset_right = -1920.0
+offset_bottom = -1080.0
 
-[node name="Waiting" type="Label" parent="Lobby"]
-margin_top = 559.0
-margin_right = 1920.0
-margin_bottom = 639.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Waiting" type="Label" parent="Lobby" unique_id=1004050176]
+layout_mode = 0
+offset_top = 559.0
+offset_right = 1920.0
+offset_bottom = 639.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
 text = "Waiting For Other Player..."
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="GameID" type="Label" parent="Lobby"]
-margin_top = 381.0
-margin_right = 1920.0
-margin_bottom = 461.0
-custom_fonts/font = ExtResource( 1 )
+[node name="GameID" type="Label" parent="Lobby" unique_id=1730205831]
+layout_mode = 0
+offset_top = 381.0
+offset_right = 1920.0
+offset_bottom = 461.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
 text = "26589"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Label" type="Label" parent="."]
-margin_left = 48.0
-margin_top = 1016.0
-margin_right = 714.0
-margin_bottom = 1033.0
+[node name="Label" type="Label" parent="." unique_id=887310963]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 1016.0
+offset_right = 714.0
+offset_bottom = 1033.0
+theme_override_font_sizes/font_size = 48
 text = "Made at TOJAM 2021"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="MainMenu/Host" to="." method="_on_Host_pressed"]
 [connection signal="pressed" from="MainMenu/Join" to="." method="_on_Join_pressed"]

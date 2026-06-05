@@ -4,9 +4,8 @@ var _is_host = true
 
 signal game_started
 signal input_received(delta, inputs)
-signal update_state(state)
-signal update_score(home_score, away_score)
-signal game_ended
+signal state_updated(state)
+signal score_updated(home_score: int, away_score: int)
 
 const P2P = preload("res://p2p.gd")
 var p2p = P2P.new()
@@ -18,12 +17,12 @@ func send_message(topic, payload):
 	})
 
 func _ready():
-	p2p.connect("on_ready", self, "_on_ready")
-	p2p.connect("on_message", self, "_on_message")
-	p2p.connect("on_closed", self, "_on_closed")
+	p2p.connect("on_ready", Callable(self, "_on_ready"))
+	p2p.connect("on_message", Callable(self, "_on_message"))
+	p2p.connect("on_closed", Callable(self, "_on_closed"))
 	self.add_child(p2p)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func get_is_host() -> bool:
@@ -31,7 +30,7 @@ func get_is_host() -> bool:
 
 func set_is_host(is_host: bool):
 	_is_host = is_host
-	PhysicsServer.set_active(is_host)
+	PhysicsServer3D.set_active(is_host)
 
 func host_game(game_id: String):
 	set_is_host(true)
@@ -41,7 +40,7 @@ func join_game(game_id: String):
 	set_is_host(false)
 	p2p.join_game(game_id)
 
-func update_score(home_score, away_score):
+func update_score(home_score: int, away_score: int):
 	send_message("update_score", {
 		"home": home_score,
 		"away": away_score
@@ -70,10 +69,10 @@ func _on_message(message):
 		emit_signal("game_started")
 	elif message["topic"] == "update_score":
 		var score = message["payload"]
-		emit_signal("update_score", score["home"], score["away"])
+		emit_signal("score_updated", int(score["home"]), int(score["away"]))
 	elif message["topic"] == "update_state":
 		var state = message["payload"]
-		emit_signal("update_state", state)
+		emit_signal("state_updated", state)
 	elif message["topic"] == "input":
 		emit_signal("input_received", message["payload"]["delta"], message["payload"]["inputs"])
 	else:

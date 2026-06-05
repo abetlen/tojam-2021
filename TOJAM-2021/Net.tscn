@@ -1,56 +1,56 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene format=3 uid="uid://cmm8lobdnxaah"]
 
-[ext_resource path="res://assets/Net.dae" type="PackedScene" id=1]
+[ext_resource type="PackedScene" uid="uid://c6r61ilsiojdl" path="res://assets/Net.dae" id="1"]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 1.12162, 1, 2.38935 )
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(11.2162, 8, 1.9274359)
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape3D" id="2"]
 margin = 0.1
-extents = Vector3( 0.828518, 1, 0.591897 )
+size = Vector3(9.1137, 8, 1.18379)
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape3D" id="3"]
 margin = 0.1
-extents = Vector3( 0.434071, 1, 0.387392 )
+size = Vector3(4.77478, 8, 0.774784)
 
-[sub_resource type="CylinderShape" id=4]
+[sub_resource type="CylinderShape3D" id="4"]
 margin = 0.1
-radius = 1.68788
 height = 8.0
+radius = 1.68788
 
-[node name="SouthNet" type="Spatial"]
+[node name="SouthNet" type="Node3D" unique_id=276780427]
 
-[node name="Net" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -1.769 )
+[node name="Net" parent="." unique_id=1486012269 instance=ExtResource("1")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -1.769)
 
-[node name="InNet" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
-mode = 1
+[node name="InNet" type="RigidBody3D" parent="." unique_id=1653841428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+freeze = true
 
-[node name="CollisionShape" type="CollisionShape" parent="InNet"]
-transform = Transform( 5, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 0.694565 )
-shape = SubResource( 1 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InNet" unique_id=340557812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.731067)
+shape = SubResource("1")
 
-[node name="OutNet" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
-mode = 1
+[node name="OutNet" type="RigidBody3D" parent="." unique_id=1132457130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+freeze = true
 
-[node name="CollisionShape" type="CollisionShape" parent="OutNet"]
-transform = Transform( 5.5, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 3.86425 )
-shape = SubResource( 2 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OutNet" unique_id=1167350515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.86425)
+shape = SubResource("2")
 
-[node name="CollisionShape4" type="CollisionShape" parent="OutNet"]
-transform = Transform( -2.40413e-07, 0, 1, 0, 4, 0, -5.5, 0, -4.37114e-08, -5.98025, 0, 0.607504 )
-shape = SubResource( 3 )
+[node name="CollisionShape4" type="CollisionShape3D" parent="OutNet" unique_id=256781066]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.98025, 0, 0.607504)
+shape = SubResource("3")
 
-[node name="CollisionShape5" type="CollisionShape" parent="OutNet"]
-transform = Transform( -2.40413e-07, 0, 1, 0, 4, 0, -5.5, 0, -4.37114e-08, 6.00773, 0, 0.607504 )
-shape = SubResource( 3 )
+[node name="CollisionShape5" type="CollisionShape3D" parent="OutNet" unique_id=1350656389]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.00773, 0, 0.607504)
+shape = SubResource("3")
 
-[node name="CollisionShape2" type="CollisionShape" parent="OutNet"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.511, 0, 2.721 )
-shape = SubResource( 4 )
+[node name="CollisionShape2" type="CollisionShape3D" parent="OutNet" unique_id=642074101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.511, 0, 2.721)
+shape = SubResource("4")
 
-[node name="CollisionShape3" type="CollisionShape" parent="OutNet"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51051, 0, 2.7208 )
-shape = SubResource( 4 )
+[node name="CollisionShape3" type="CollisionShape3D" parent="OutNet" unique_id=869051244]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51051, 0, 2.7208)
+shape = SubResource("4")

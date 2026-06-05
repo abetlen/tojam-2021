@@ -1,12 +1,12 @@
-extends RigidBody
+extends RigidBody3D
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 
-export var INITIAL_LINEAR_VELOCITY = 20
-export var MAX_LINEAR_VELOCITY = 150
+@export var INITIAL_LINEAR_VELOCITY = 20
+@export var MAX_LINEAR_VELOCITY = 150
 
 signal scored_on(net)
 
@@ -26,7 +26,7 @@ func reset_velocity():
 	else:
 		self.linear_velocity.z = -INITIAL_LINEAR_VELOCITY
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var bodies = self.get_colliding_bodies()
 	if len(bodies) > 0:
 		var body = bodies[0]

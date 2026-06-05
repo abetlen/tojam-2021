@@ -1,37 +1,40 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene format=3 uid="uid://b40f6mqc0enwc"]
 
-[sub_resource type="Curve3D" id=1]
+[sub_resource type="Curve3D" id="1"]
 bake_interval = 1.0
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -32, 0, -8, 0, 0, -8, 0, 0, 8, -32, 0, 8, 0, 0, 0, 0, 0, 0, -24, 0, 16, 0, 0, 0, 0, 0, 0, 24, 0, 16, 0, 0, 8, 0, 0, -8, 32, 0, 8, 0, 0, 0, 0, 0, 0, 32, 0, -8 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -32, 0, -8, 0, 0, -8, 0, 0, 8, -32, 0, 8, 0, 0, 0, 0, 0, 0, -24, 0, 16, 0, 0, 0, 0, 0, 0, 24, 0, 16, 0, 0, 8, 0, 0, -8, 32, 0, 8, 0, 0, 0, 0, 0, 0, 32, 0, -8),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
 }
+point_count = 6
 
-[sub_resource type="SpatialMaterial" id=2]
-flags_unshaded = true
-albedo_color = Color( 0.482353, 0.482353, 0.482353, 1 )
+[sub_resource type="StandardMaterial3D" id="2"]
+shading_mode = 0
+albedo_color = Color(0.482353, 0.482353, 0.482353, 1)
 
-[node name="Player2Path" type="Path"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 16 )
-curve = SubResource( 1 )
+[node name="Player2Path" type="Path3D" unique_id=1750424356]
+curve = SubResource("1")
 
-[node name="PathFollow" type="PathFollow" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9276, 0, 16 )
-offset = 33.7503
+[node name="PathFollow3D" type="PathFollow3D" parent="." unique_id=47744468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.937885, 0, 16)
+progress = 33.7503
 rotation_mode = 0
 
-[node name="Target" type="Position3D" parent="PathFollow"]
+[node name="Target" type="Marker3D" parent="PathFollow3D" unique_id=2056560700]
 
-[node name="Outline" type="CSGPolygon" parent="."]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.5, 0 )
+[node name="Outline" type="CSGPolygon3D" parent="." unique_id=1470870874]
+transform = Transform3D(-1, 0, 8.74228e-08, -7.6427436e-15, -1, -8.742278e-08, 8.74228e-08, -8.742278e-08, 1, 0, 0.2, 0)
 layers = 2
-invert_faces = true
-polygon = PoolVector2Array( -0.5, 0, -0.5, 0.25, 0.5, 0.25, 0.5, 0 )
+polygon = PackedVector2Array(-0.5, 0, -0.5, 0.25, 0.5, 0.25, 0.5, 0)
 mode = 2
 path_node = NodePath("..")
+path_interval_type = 0
 path_interval = 1.0
+path_simplify_angle = 0.0
 path_rotation = 2
-path_local = false
+path_rotation_accurate = false
+path_local = true
 path_continuous_u = false
+path_u_distance = 1.0
 path_joined = false
-material = SubResource( 2 )
+material = SubResource("2")
